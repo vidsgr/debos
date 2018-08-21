@@ -31,6 +31,7 @@ RUN apt-get update && \
     ca-certificates \
     systemd-container \
     binfmt-support \
+    patch \
     # fakemachine runtime dependencies
     qemu-system-x86 \
     qemu-user-static \
@@ -41,5 +42,10 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /go/src/github.com/go-debos/debos/debos /usr/bin/debos
+
+# Bug description: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=806780
+# It was fixed in debootstrap 1.0.96 while Stretch provides 1.0.89
+COPY files/0001-Fix-multiple-components-usage-for-foreign.patch /usr/share/debootstrap
+RUN cd /usr/share/debootstrap && patch < 0001-Fix-multiple-components-usage-for-foreign.patch
 
 WORKDIR /root
