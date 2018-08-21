@@ -1,4 +1,8 @@
 #!/bin/bash
 
-# [ $# = 0 ] && echo "Provide RECIPE file as an argument" && exit 1
-docker run -it -v ${PWD}:/root --device=/dev/kvm:/dev/kvm debos /bin/bash -c "debos $*"
+docker run --rm \
+	-it \
+	--privileged \
+	-v ${PWD}:/root \
+	debos \
+	/bin/bash -c "DEBIAN_FRONTEND=noninteractive dpkg-reconfigure qemu-user-static && debos $*"
