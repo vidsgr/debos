@@ -30,6 +30,7 @@ RUN apt-get update && \
     libostree-1-1 \
     ca-certificates \
     systemd-container \
+    binfmt-support \
     # fakemachine runtime dependencies
     qemu-system-x86 \
     qemu-user-static \
