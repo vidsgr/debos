@@ -46,6 +46,10 @@ COPY --from=builder /go/src/github.com/go-debos/debos/debos /usr/bin/debos
 # Bug description: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=806780
 # It was fixed in debootstrap 1.0.96 while Stretch provides 1.0.89
 COPY files/0001-Fix-multiple-components-usage-for-foreign.patch /usr/share/debootstrap
-RUN cd /usr/share/debootstrap && patch < 0001-Fix-multiple-components-usage-for-foreign.patch
+RUN cd /usr/share/debootstrap && \
+    patch < 0001-Fix-multiple-components-usage-for-foreign.patch && \
+    rm /usr/share/debootstrap/0001-Fix-multiple-components-usage-for-foreign.patch && \
+    apt-get autoremove -y patch && \
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /root
