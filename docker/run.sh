@@ -5,4 +5,4 @@ docker run --rm \
 	--privileged \
 	-v ${PWD}:/root \
 	debos \
-	/bin/bash -c "DEBIAN_FRONTEND=noninteractive dpkg-reconfigure qemu-user-static && debos $*"
+	/bin/bash -c "debos $*"
