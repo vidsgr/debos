@@ -39,6 +39,11 @@ RUN apt-get update && \
     linux-image-amd64 \
     systemd \
     dbus \
+    parted \
+    cryptsetup \
+    grub-pc \
+    dosfstools \
+    util-linux \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /go/src/github.com/go-debos/debos/debos /usr/bin/debos
